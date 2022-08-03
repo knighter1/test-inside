@@ -21,6 +21,14 @@ class StorageService {
         const matchPassword = await bcrypt.compare(password, user.password);
         return matchPassword;
     }
+
+    async getHistory(count) {
+        const result = [];
+        for (let i = 0; i < count; ++i)
+            result.push(Math.random());
+
+        return result;
+    }
 }
   
 module.exports = new StorageService();

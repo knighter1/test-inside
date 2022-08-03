@@ -1,5 +1,4 @@
 module.exports = (storageService) => (
-
     async (req, res, next) => {
         const {name, password} = req.body;
         const user = await storageService.findUser(name);
