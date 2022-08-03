@@ -1,12 +1,18 @@
 const express = require('express');
 const storageService = require('./services/storage');
 const authenticate = require('./middlewares/authentication');
+const generateToken = require('./utils/jwt');
 
 const router = express.Router();
 
 router.post(`/login`, authenticate(storageService), async (req, res) => {
-    const { name, password } = req.body;
-    console.log([name, password]);
+    const { name } = req.body;
+
+    res.json({
+        token: generateToken({
+            name
+        })
+    });
 });
 
 module.exports = router;
