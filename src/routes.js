@@ -19,10 +19,16 @@ router.post(`/login`, authenticate(storageService), async (req, res) => {
 
 router.get(`/message`, authenticateJwt, async (req, res) => {
     
-    const response = await messagesService.process(req.query.message);
+    const { name, message } = req.query;
+    const response = await messagesService.process(message);
+
+    const user = await storageService.findUser(name);
+
+    if (user)
+        storageService.addHistory(user, message);
 
     res.json({
-        message: response
+        messages: response
     });
 });
 

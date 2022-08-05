@@ -1,27 +1,55 @@
-const bcrypt = require('bcrypt');
 const db = require('../lib/mysql');
 
 class StorageService {
 
     constructor () {
+        this._users = [];
     }
 
     async findUser(name) {
-        const [rows] = await db.query('SELECT `name`, `password` FROM `users` WHERE `name` = ?', [name]);
-        return rows[0];
-    }
-  
-    async checkUser(user, password) {
-        const matchPassword = await bcrypt.compare(password, user.password);
-        return matchPassword;
+        
+        const user = this._users.find((user) => user.name === name);
+
+        if (user) {
+            return user;
+        }
+        
+        try {
+            const [rows] = await db.query('SELECT `id`, `name`, `password` FROM `users` WHERE `name` = ?', [name]);
+
+            if (rows.length) {
+                this._users.push(rows[0]);
+                return rows[0];
+            }
+        }
+        catch (err) {
+            console.log(err);   
+        }
     }
 
-    async getHistory(count) {
-        const result = [];
-        for (let i = 0; i < count; ++i)
-            result.push(Math.random());
+    addHistory(user, message) {
+        try {
+            db.query('INSERT INTO `messages` (id, `user_id`, `message`) VALUES (0, ?, ?)', [user.id, message]);
+        }
+        catch (err) {
+            console.log(err);   
+        }
+    }
 
-        return result;
+    async getHistory(count) {       
+        try {
+            const [ rows ] = await db.query('SELECT `message` FROM `messages` ORDER BY `id` DESC LIMIT ?', [parseInt(count)]);
+            
+            const result = Array.from(rows, (row) => {
+                const { message } = row;
+                return message; 
+            });
+            
+            return result;
+        }
+        catch (err) {
+            console.log(err);   
+        }
     }
 }
   

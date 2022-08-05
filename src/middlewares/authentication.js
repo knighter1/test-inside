@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+
 module.exports = (storageService) => (
     async (req, res, next) => {
         const {name, password} = req.body;
@@ -10,8 +12,10 @@ module.exports = (storageService) => (
             console.error(message);
             return;
         }
+
+        const matchPassword = await bcrypt.compare(password, user.password);
         
-        if (!await storageService.checkUser(user, password)) {
+        if (!matchPassword) {
             const message = 'Wrong password'
             res.status(403)
                 .json({ message });
