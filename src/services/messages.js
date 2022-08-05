@@ -1,3 +1,5 @@
+// Модуль для исполняемых сообщений от пользователей
+
 const historyCommand = require('./commands/history');
 
 class MessagesService {
@@ -7,10 +9,12 @@ class MessagesService {
         this.register(historyCommand);
     }
 
+    // Метод для регистрации новой команды
     register(command) {
         this._commands.push(command);
     }
 
+    // Метод для выполнения входящей команды от пользователя с указанными параметрами
     async process(commandData) {
         const [commandName, ...params] = commandData.split(' ');
         const command = this._commands.find((command) => command.name === commandName);

@@ -1,3 +1,5 @@
+// Модуль команды для запроса истории сообщений
+
 const storageService = require('../storage');
 
 class HistoryCommand {

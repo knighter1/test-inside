@@ -1,3 +1,5 @@
+// Сервис хранилища данных
+
 const db = require('../lib/mysql');
 
 class StorageService {
@@ -6,6 +8,7 @@ class StorageService {
         this._users = [];
     }
 
+    // Метод производит поиск пользователя по имени, поддерживает кеширование
     async findUser(name) {
         
         const user = this._users.find((user) => user.name === name);
@@ -27,6 +30,7 @@ class StorageService {
         }
     }
 
+    // Метод добавляет новое сообщение от пользователя
     addHistory(user, message) {
         try {
             db.query('INSERT INTO `messages` (id, `user_id`, `message`) VALUES (0, ?, ?)', [user.id, message]);
@@ -36,6 +40,7 @@ class StorageService {
         }
     }
 
+    // Метод для получения историй сообщений
     async getHistory(count) {       
         try {
             const [ rows ] = await db.query('SELECT `message` FROM `messages` ORDER BY `id` DESC LIMIT ?', [parseInt(count)]);

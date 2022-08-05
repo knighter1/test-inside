@@ -1,6 +1,9 @@
+// Модуль для работы с БД MySQL
+
 const mysql = require('mysql2/promise');
 const { MYSLQ_ROOT_PASSWORD } = require('../../config');
 
+// Подключаемся к БД
 const pool = mysql.createPool({
     connectionLimit: 10,
     host: 'localhost',
@@ -9,6 +12,7 @@ const pool = mysql.createPool({
     database: 'test_database'
 });
 
+// Создаем пул соединений
 pool.getConnection((err, connection) => {
     
     if (err) {

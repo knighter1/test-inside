@@ -1,6 +1,7 @@
 const jwt = require(`jsonwebtoken`);
+// Middleware для проверки доступа к закрытым маршрутам
+
 const { JWT_ACCESS_SECRET } = require('../../config');
-const storageService = require('../services/storage');
 
 module.exports = (req, res, next) => {
     const authorization = req.headers[`authorization`]
@@ -22,5 +23,5 @@ module.exports = (req, res, next) => {
         }
 
         next();
-    })
+    });
 }

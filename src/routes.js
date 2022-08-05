@@ -1,3 +1,5 @@
+// Модуль с маршрутами endpoint-ов
+
 const express = require('express');
 const storageService = require('./services/storage');
 const messagesService = require('./services/messages');
@@ -7,6 +9,7 @@ const generateToken = require('./utils/jwt');
 
 const router = express.Router();
 
+// Маршрут для аутентификации
 router.post(`/login`, authenticate(storageService), async (req, res) => {
     const { name } = req.body;
 
@@ -17,6 +20,7 @@ router.post(`/login`, authenticate(storageService), async (req, res) => {
     });
 });
 
+// Маршрут для сообщений от пользователей
 router.get(`/message`, authenticateJwt, async (req, res) => {
     
     const { name, message } = req.query;

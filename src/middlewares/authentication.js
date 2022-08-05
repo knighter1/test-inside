@@ -1,3 +1,5 @@
+// Middleware для аутентификации по логину и паролю
+
 const bcrypt = require('bcrypt');
 
 module.exports = (storageService) => (
