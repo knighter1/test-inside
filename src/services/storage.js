@@ -1,20 +1,14 @@
-const bcrypt = require(`bcrypt`);
-
-const saltRounds = 10;
+const bcrypt = require('bcrypt');
+const db = require('../lib/mysql');
 
 class StorageService {
 
     constructor () {
-        this._users = [
-            {
-                name: 'John',
-                password: bcrypt.hashSync('passwd', saltRounds)
-            }
-        ];
     }
 
     async findUser(name) {
-        return this._users.find((user) => user.name === name);
+        const [rows] = await db.query('SELECT `name`, `password` FROM `users` WHERE `name` = ?', [name]);
+        return rows[0];
     }
   
     async checkUser(user, password) {

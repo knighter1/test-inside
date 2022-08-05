@@ -4,15 +4,18 @@ module.exports = (storageService) => (
         const user = await storageService.findUser(name);
 
         if (!user) {
+            const message = 'User not found';
             res.status(403)
-                .json({message: 'User not found'});
+                .json({ message });
+            console.error(message);
             return;
         }
         
         if (!await storageService.checkUser(user, password)) {
+            const message = 'Wrong password'
             res.status(403)
-                .json({message: 'Wrong password'});
-    
+                .json({ message });
+            console.error(message);
             return;
         }
   
