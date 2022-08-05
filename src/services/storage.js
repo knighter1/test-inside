@@ -41,7 +41,7 @@ class StorageService {
     }
 
     // Метод для получения историй сообщений
-    async getHistory(count) {       
+    async getHistory(count) {
         try {
             const [ rows ] = await db.query('SELECT `message` FROM `messages` ORDER BY `id` DESC LIMIT ?', [parseInt(count)]);
             

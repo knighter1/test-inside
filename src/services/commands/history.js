@@ -1,7 +1,5 @@
 // Модуль команды для запроса истории сообщений
 
-const storageService = require('../storage');
-
 class HistoryCommand {
     
     constructor(storageService) {
@@ -14,4 +12,4 @@ class HistoryCommand {
     }
 }
 
-module.exports = new HistoryCommand(storageService);
+module.exports = HistoryCommand;

@@ -29,3 +29,4 @@ catch (err) {
     process.exit(1);
 }
 
+require('../mock-data');

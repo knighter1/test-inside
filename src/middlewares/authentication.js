@@ -11,7 +11,7 @@ module.exports = (storageService) => (
             const message = 'User not found';
             res.status(403)
                 .json({ message });
-            console.error(message);
+            //console.error(message);
             return;
         }
 
@@ -21,7 +21,7 @@ module.exports = (storageService) => (
             const message = 'Wrong password'
             res.status(403)
                 .json({ message });
-            console.error(message);
+            //console.error(message);
             return;
         }
   

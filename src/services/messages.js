@@ -1,12 +1,12 @@
 // Модуль для исполняемых сообщений от пользователей
 
-const historyCommand = require('./commands/history');
+const HistoryCommand = require('./commands/history');
 
 class MessagesService {
 
-    constructor() {
+    constructor(storageService) {
         this._commands = [];
-        this.register(historyCommand);
+        this.register(new HistoryCommand(storageService));
     }
 
     // Метод для регистрации новой команды
@@ -25,4 +25,4 @@ class MessagesService {
     }
 }
 
-module.exports = new MessagesService();
+module.exports = MessagesService;

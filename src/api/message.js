@@ -1,5 +1,5 @@
 const { Router } = require(`express`);
-const messagesService = require('../services/messages');
+const MessagesService = require('../services/messages');
 const authenticateJwt = require('../middlewares/authentication-jwt');
 
 // Маршрут для аутентификации
@@ -7,6 +7,8 @@ module.exports = (app, storageService) => {
 
     const router = new Router();
     app.use(`/`, router);
+
+    const messagesService = new MessagesService(storageService);
 
     router.get(`/message`, authenticateJwt, async (req, res) => {
     
