@@ -1,7 +1,7 @@
 // Основной модуль приложения
 
 const express = require('express');
-const router = require('./routes');
+const routes = require(`./api`);
 
 const app = express();
 app.use(express.json())
@@ -12,7 +12,7 @@ app.use((req, _res, next) => {
     next();
 });
 
-app.use(`/`, router);
+app.use(`/`, routes);
 
 try {
     app.listen(port, (err) =>
@@ -28,3 +28,4 @@ catch (err) {
     console.log(`An error occurred: ${err.message}`);
     process.exit(1);
 }
+
