@@ -15,7 +15,7 @@ describe('Unauthorized (without jwt)', () => {
     beforeAll(async () =>
     {
         response = await request(app)
-        .get('/message');
+        .post('/message');
     });         
   
     test('Status code 401', () => expect(response.statusCode).toBe(401));
@@ -32,7 +32,7 @@ describe('Unauthorized (with wrong jwt)', () => {
     beforeAll(async () =>
     {
         response = await request(app)
-        .get('/message')
+        .post('/message')
         .set('Authorization', '123');
     });         
   
@@ -61,8 +61,12 @@ describe(`Success, ${messagesCount} last messages (with auth)`, () => {
         });
 
         response = await request(app)
-        .get(`/message?name=test&message=history ${messagesCount}`)
-        .set('Authorization', 'Bearer_' + response.body.token);
+        .post(`/message`)
+        .set('Authorization', 'Bearer_' + response.body.token)
+        .send({
+            "name": "test",
+            "message": `history ${messagesCount}`
+        });
     });
   
     test('Status code 200', () => expect(response.statusCode).toBe(200));

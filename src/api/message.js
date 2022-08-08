@@ -10,9 +10,9 @@ module.exports = (app, storageService) => {
 
     const messagesService = new MessagesService(storageService);
 
-    router.get(`/message`, authenticateJwt, async (req, res) => {
+    router.post(`/message`, authenticateJwt, async (req, res) => {
     
-        const { name, message } = req.query;
+        const { name, message } = req.body;
         const response = await messagesService.process(message);
     
         const user = await storageService.findUser(name);
