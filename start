@@ -1,0 +1,2 @@
+docker run --name mysql1 -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=passwd -v ~/mysql:/var/lib/mysql knighter1/test-inside-mysql
+docker run --name backend -d -p 8128:8128 --link mysql1:mysql1 --env DB_HOST=mysql1 knighter1/test-inside-backend
