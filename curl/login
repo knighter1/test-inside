@@ -1,0 +1,1 @@
+curl -d '{"name":"test", "password":"test"}' -H "Content-Type: application/json" -X POST http://127.0.0.1:8128/login

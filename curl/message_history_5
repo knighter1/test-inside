@@ -1,0 +1,3 @@
+TOKEN=$(curl -d '{"name":"test", "password":"test"}' -H "Content-Type: application/json" -X POST http://127.0.0.1:8128/login | jq -r .token)
+MESSAGE="history 5"
+curl -d "{\"name\":\"test\", \"message\":\"$MESSAGE\"}" -H "Authorization: Bearer_$TOKEN" -H "Content-Type: application/json" -X POST http://127.0.0.1:8128/message
