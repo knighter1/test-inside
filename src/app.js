@@ -28,5 +28,3 @@ catch (err) {
     console.log(`An error occurred: ${err.message}`);
     process.exit(1);
 }
-
-require('../mock-data');
